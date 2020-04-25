@@ -11,7 +11,9 @@ export default function MainContainer() {
         <LoginInput />
         <CTARegister />
       </LoginWrapper>
-      <div>Content</div>
+      <MainBody>
+        <LoginBg></LoginBg>
+      </MainBody>
     </Container>
   );
 }
@@ -22,6 +24,13 @@ const Container = styled.div`
   min-height: 100vh;
 `;
 
+const MainBody = styled.div``;
+const LoginBg = styled.div`
+  background: url("/loginbg.jpg") no-repeat;
+  background-size: 100%;
+  background-position: center;
+  min-height: 100vh;
+`;
 const LoginWrapper = styled.div`
   margin-top: 40px;
   display: flex;
