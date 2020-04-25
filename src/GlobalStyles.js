@@ -18,5 +18,6 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     font-family: Montserrat, sans-serif;
+    color: #4D4965;
     }
 `;

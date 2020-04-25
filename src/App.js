@@ -2,21 +2,17 @@ import React from "react";
 import styled from "styled-components";
 
 import { GlobalStyles } from "./GlobalStyles";
-import LoginContainer from "./LoginContainer";
+import MainContainer from "./MainContainer";
 
 function App() {
   return (
     <Wrapper>
       <GlobalStyles />
-      <LoginContainer />
+      <MainContainer />
     </Wrapper>
   );
 }
 
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 4fr;
-  min-height: 100vh;
-`;
+const Wrapper = styled.div``;
 
 export default App;
