@@ -1,20 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 
 import LoginInput from "./LoginInput";
 import RegisterSpan from "./RegisterSpan";
+import { UserContext } from "./UserContext";
+import { Redirect } from "react-router-dom";
 
-export default function MainContainer() {
+export default function LoginPage() {
+  const { user, token } = useContext(UserContext);
+
   return (
     <Container>
-      <LoginWrapper>
-        <Logo src="/logo.jpg" alt="logo" />
-        <LoginInput />
-        <RegisterSpan />
-      </LoginWrapper>
-      <MainBody>
-        <LoginBg></LoginBg>
-      </MainBody>
+      {token ? (
+        <Redirect to="/dashboard" />
+      ) : (
+        <>
+          <LoginWrapper>
+            <Logo src="/logo.jpg" alt="logo" />
+            <LoginInput />
+            <RegisterSpan />
+          </LoginWrapper>
+          <MainBody>
+            <LoginBg></LoginBg>
+          </MainBody>
+        </>
+      )}
     </Container>
   );
 }

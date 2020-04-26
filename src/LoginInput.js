@@ -6,15 +6,16 @@ import { UserContext } from "./UserContext";
 export default function LoginInput() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setbodyToPost } = useContext(UserContext);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setbodyToPost({ email, password });
-  };
+  const { handleLogin } = useContext(UserContext);
 
   return (
     <Wrapper>
-      <StyledForm onSubmit={handleSubmit}>
+      <StyledForm
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleLogin({ email, password });
+        }}
+      >
         <StyledFieldSet>
           <StyledLabel>Email</StyledLabel>
           <StyledEmailInput

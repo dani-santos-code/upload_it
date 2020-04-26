@@ -1,14 +1,23 @@
 import React from "react";
 import styled from "styled-components";
-
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { GlobalStyles } from "./GlobalStyles";
-import MainContainer from "./MainContainer";
-
+import LoginPage from "./LoginPage";
+import Dashboard from "./Dashboard";
 function App() {
   return (
     <Wrapper>
       <GlobalStyles />
-      <MainContainer />
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <LoginPage />
+          </Route>
+          <Route path="/dashboard">
+            <Dashboard />
+          </Route>
+        </Switch>
+      </Router>
     </Wrapper>
   );
 }

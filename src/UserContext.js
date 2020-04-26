@@ -3,27 +3,33 @@ import React, { createContext, useEffect, useState } from "react";
 export const UserContext = createContext(null);
 
 const UserProvider = ({ children }) => {
-  const [bodyToPost, setbodyToPost] = useState(null);
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
-  console.log(bodyToPost);
-  useEffect(() => {
+
+  const handleLogin = ({ email, password }) => {
     fetch("http://127.0.0.1:3000/api/v1/users/login", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(bodyToPost),
+      mode: "cors",
+      body: JSON.stringify({ email, password }),
     })
       .then((res) => res.json())
       .then(({ user, token }) => {
         setToken(token);
         setUser(user);
+        localStorage.setItem("token", token);
       });
-  }, [bodyToPost]);
+  };
+
+  useEffect(() => {
+    const localToken = localStorage.getItem("token");
+    setToken(localToken);
+  }, []);
 
   return (
-    <UserContext.Provider value={{ setbodyToPost, token, user }}>
+    <UserContext.Provider value={{ handleLogin, token, user }}>
       {children}
     </UserContext.Provider>
   );
