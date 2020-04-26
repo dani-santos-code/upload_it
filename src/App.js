@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { GlobalStyles } from "./GlobalStyles";
 import LoginPage from "./LoginPage";
 import Dashboard from "./Dashboard";
+import PrivateRoute from "./PrivateRoute";
+
 function App() {
   return (
     <Wrapper>
@@ -13,9 +15,9 @@ function App() {
           <Route exact path="/">
             <LoginPage />
           </Route>
-          <Route path="/dashboard">
+          <PrivateRoute path="/dashboard">
             <Dashboard />
-          </Route>
+          </PrivateRoute>
         </Switch>
       </Router>
     </Wrapper>
