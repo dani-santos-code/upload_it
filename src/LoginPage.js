@@ -10,7 +10,7 @@ export default function LoginPage() {
   const { user, token } = useContext(UserContext);
 
   return (
-    <Container>
+    <>
       {token ? (
         <Redirect to="/dashboard" />
       ) : (
@@ -18,22 +18,26 @@ export default function LoginPage() {
           <LoginWrapper>
             <Logo src="/logo.jpg" alt="logo" />
             <LoginInput />
-            <RegisterSpan />
+            <RegisterSpan
+              message={"Don't have an account?"}
+              action={"Register"}
+              url="/signup"
+            />
           </LoginWrapper>
           <MainBody>
             <LoginBg></LoginBg>
           </MainBody>
         </>
       )}
-    </Container>
+    </>
   );
 }
 
-const Container = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 4fr;
-  min-height: 100vh;
-`;
+// const Container = styled.div`
+//   display: grid;
+//   grid-template-columns: 2fr 4fr;
+//   min-height: 100vh;
+// `;
 
 const MainBody = styled.div``;
 const LoginBg = styled.div`

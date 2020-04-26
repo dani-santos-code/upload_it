@@ -3,20 +3,28 @@ import styled from "styled-components";
 import Button from "./Button";
 import { UserContext } from "./UserContext";
 
-export default function LoginInput() {
+export default function SignUpInput() {
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const { handleLogin } = useContext(UserContext);
+  //const { handleSignUp } = useContext(UserContext);
 
   return (
     <Wrapper>
       <StyledForm
         onSubmit={(e) => {
           e.preventDefault();
-          handleLogin({ email, password });
+          //handleSignUp({ email, password });
         }}
       >
         <StyledFieldSet>
+          <StyledLabel>Name</StyledLabel>
+          <StyledInput
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Your Name"
+          />
           <StyledLabel>Email</StyledLabel>
           <StyledInput
             type="email"
@@ -25,13 +33,21 @@ export default function LoginInput() {
             placeholder="johndoe@john.com"
           />
           <StyledLabel>Password</StyledLabel>
-          <StyledPassWordInput
+          <StyledInput
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            type="password"
+            place
+            holder="*********"
+          />
+          <StyledLabel>Confirm Password</StyledLabel>
+          <StyledInput
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type="password"
             placeholder="*********"
           />
-          <Button>Log In</Button>
+          <Button>Sign Up</Button>
         </StyledFieldSet>
       </StyledForm>
     </Wrapper>
@@ -71,9 +87,9 @@ const StyledInput = styled.input`
   }
 `;
 
-const StyledPassWordInput = styled(StyledInput)`
-  margin-bottom: 40px;
-`;
+// const StyledEmailInput = styled(StyledInput)`
+//   margin-bottom: 30px;
+// `;
 
 const StyledLabel = styled.label`
   font-size: 14px;
