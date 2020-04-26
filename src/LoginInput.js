@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import Button from "./Button";
-const handleSubmit = (e) => {
-  e.preventDefault();
-  console.log("Clicked");
-};
+import { UserContext } from "./UserContext";
 
 export default function LoginInput() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setbodyToPost } = useContext(UserContext);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setbodyToPost({ email, password });
+  };
 
   return (
     <Wrapper>
