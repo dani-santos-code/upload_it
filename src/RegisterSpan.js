@@ -11,6 +11,7 @@ export default function CTARegister() {
 
 const StyledCTARegister = styled.span`
   font-size: 14px;
+  margin-top: 40px;
   margin-left: 80px;
   a {
     color: #0b146e;

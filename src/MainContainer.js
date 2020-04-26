@@ -2,14 +2,15 @@ import React from "react";
 import styled from "styled-components";
 
 import LoginInput from "./LoginInput";
-import CTARegister from "./CTARegister";
+import RegisterSpan from "./RegisterSpan";
+
 export default function MainContainer() {
   return (
     <Container>
       <LoginWrapper>
         <Logo src="/logo.jpg" alt="logo" />
         <LoginInput />
-        <CTARegister />
+        <RegisterSpan />
       </LoginWrapper>
       <MainBody>
         <LoginBg></LoginBg>
@@ -27,7 +28,7 @@ const Container = styled.div`
 const MainBody = styled.div``;
 const LoginBg = styled.div`
   background: url("/loginbg.jpg") no-repeat;
-  background-size: 100%;
+  background-size: cover;
   background-position: center;
   min-height: 100vh;
 `;

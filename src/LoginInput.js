@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-
-const handleSubmit = () => {};
+import Button from "./Button";
+const handleSubmit = (e) => {
+  e.preventDefault();
+  console.log("Clicked");
+};
 
 export default function LoginInput() {
   const [email, setEmail] = useState("");
@@ -12,7 +15,7 @@ export default function LoginInput() {
       <StyledForm onSubmit={handleSubmit}>
         <StyledFieldSet>
           <StyledLabel>Email</StyledLabel>
-          <StyledInput
+          <StyledEmailInput
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -25,6 +28,7 @@ export default function LoginInput() {
             type="password"
             placeholder="*********"
           />
+          <Button>Log In</Button>
         </StyledFieldSet>
       </StyledForm>
     </Wrapper>
@@ -57,6 +61,14 @@ const StyledInput = styled.input`
   box-sizing: border-box;
   border-radius: 0px 50px 50px 0px;
   padding: 20px;
+  margin-bottom: 10px;
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 10px #1b219f;
+  }
+`;
+
+const StyledEmailInput = styled(StyledInput)`
   margin-bottom: 30px;
 `;
 
