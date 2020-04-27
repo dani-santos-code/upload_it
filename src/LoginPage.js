@@ -7,7 +7,7 @@ import { UserContext } from "./UserContext";
 import { Redirect } from "react-router-dom";
 
 export default function LoginPage() {
-  const { user, token } = useContext(UserContext);
+  const { token } = useContext(UserContext);
 
   return (
     <>

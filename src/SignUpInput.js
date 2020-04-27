@@ -7,14 +7,25 @@ export default function SignUpInput() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  //const { handleSignUp } = useContext(UserContext);
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [isConfirmed, setIsConfirmed] = useState(false);
+  const [error, setError] = useState({ status: false, type: null });
+  const { handleSignUp } = useContext(UserContext);
 
   return (
     <Wrapper>
       <StyledForm
         onSubmit={(e) => {
           e.preventDefault();
-          //handleSignUp({ email, password });
+          if (isConfirmed) {
+            handleSignUp({ name, email, password });
+          } else {
+            setError({
+              ...error,
+              status: true,
+              type: "Passwords don't match!",
+            });
+          }
         }}
       >
         <StyledFieldSet>
@@ -24,6 +35,7 @@ export default function SignUpInput() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Your Name"
+            required={true}
           />
           <StyledLabel>Email</StyledLabel>
           <StyledInput
@@ -31,22 +43,39 @@ export default function SignUpInput() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="johndoe@john.com"
+            required={true}
           />
           <StyledLabel>Password</StyledLabel>
           <StyledInput
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              e.preventDefault();
+              setPassword(e.target.value);
+            }}
             type="password"
             place
             holder="*********"
+            required={true}
           />
           <StyledLabel>Confirm Password</StyledLabel>
-          <StyledInput
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+          <StyledPassWordConfirmationInput
+            value={passwordConfirmation}
+            onChange={(e) => {
+              e.preventDefault();
+              setPasswordConfirmation(e.target.value);
+              if (passwordConfirmation === password) {
+                setIsConfirmed(!isConfirmed);
+              }
+            }}
             type="password"
             placeholder="*********"
+            required={true}
           />
+          {error.status && passwordConfirmation !== password ? (
+            <PassWordError>{error.type}</PassWordError>
+          ) : (
+            ""
+          )}
           <Button>Sign Up</Button>
         </StyledFieldSet>
       </StyledForm>
@@ -87,11 +116,17 @@ const StyledInput = styled.input`
   }
 `;
 
-// const StyledEmailInput = styled(StyledInput)`
-//   margin-bottom: 30px;
-// `;
-
+const StyledPassWordConfirmationInput = styled(StyledInput)`
+  margin-bottom: 5px;
+`;
 const StyledLabel = styled.label`
   font-size: 14px;
   margin-bottom: 10px;
+`;
+
+const PassWordError = styled.span`
+  color: red;
+  display: block;
+  font-size: 14px;
+  padding-bottom: 5px;
 `;
