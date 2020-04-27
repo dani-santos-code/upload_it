@@ -8,7 +8,7 @@ export default function SignUpInput() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const [isConfirmed, setIsConfirmed] = useState(false);
+  //const [isConfirmed, setIsConfirmed] = useState(false);
   const [error, setError] = useState({ status: false, type: null });
   const { handleSignUp } = useContext(UserContext);
 
@@ -17,6 +17,7 @@ export default function SignUpInput() {
       <StyledForm
         onSubmit={(e) => {
           e.preventDefault();
+          const isConfirmed = passwordConfirmation === password;
           if (isConfirmed) {
             handleSignUp({ name, email, password });
           } else {
@@ -49,23 +50,17 @@ export default function SignUpInput() {
           <StyledInput
             value={password}
             onChange={(e) => {
-              e.preventDefault();
               setPassword(e.target.value);
             }}
             type="password"
-            place
-            holder="*********"
+            placeholder="*********"
             required={true}
           />
           <StyledLabel>Confirm Password</StyledLabel>
           <StyledPassWordConfirmationInput
             value={passwordConfirmation}
             onChange={(e) => {
-              e.preventDefault();
               setPasswordConfirmation(e.target.value);
-              if (passwordConfirmation === password) {
-                setIsConfirmed(!isConfirmed);
-              }
             }}
             type="password"
             placeholder="*********"

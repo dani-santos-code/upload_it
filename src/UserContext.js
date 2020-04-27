@@ -1,10 +1,13 @@
 import React, { createContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { Router } from "react-router-dom";
 
 export const UserContext = createContext(null);
 
 const UserProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
+  let history = useHistory();
 
   const handleLogin = ({ email, password }) => {
     fetch("http://127.0.0.1:3000/api/v1/users/login", {
@@ -33,11 +36,16 @@ const UserProvider = ({ children }) => {
       body: JSON.stringify({ name, email, password }),
     })
       .then((res) => res.json())
-      .then(({ token }) => {
-        // setToken(token);
-        // setUser(user);
-        console.log(token);
-        //localStorage.setItem("token", token);
+      .then(({ user, token }) => {
+        setToken(token);
+        setUser(user);
+        localStorage.setItem("token", token);
+        history.push("/dashboard");
+        history.go();
+      })
+      .catch((e) => {
+        console.log(e);
+        history.push("/signup");
       });
   };
 

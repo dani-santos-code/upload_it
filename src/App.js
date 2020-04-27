@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Switch, Route } from "react-router-dom";
 import { GlobalStyles } from "./GlobalStyles";
 import LoginPage from "./LoginPage";
 import Dashboard from "./Dashboard";
@@ -11,19 +11,17 @@ function App() {
   return (
     <Wrapper>
       <GlobalStyles />
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            <LoginPage />
-          </Route>
-          <Route path="/signup">
-            <SignUp />
-          </Route>
-          <PrivateRoute path="/dashboard">
-            <Dashboard />
-          </PrivateRoute>
-        </Switch>
-      </Router>
+      <Switch>
+        <Route exact path="/">
+          <LoginPage />
+        </Route>
+        <Route path="/signup">
+          <SignUp />
+        </Route>
+        <PrivateRoute path="/dashboard">
+          <Dashboard />
+        </PrivateRoute>
+      </Switch>
     </Wrapper>
   );
 }

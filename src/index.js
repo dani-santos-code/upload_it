@@ -1,15 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
-//import './index.css';
 import App from "./App";
+import { Router } from "react-router-dom";
+import { createBrowserHistory } from "history";
 import * as serviceWorker from "./serviceWorker";
 import UserProvider from "./UserContext";
 
+const customHistory = createBrowserHistory();
+
 ReactDOM.render(
   <React.StrictMode>
-    <UserProvider>
-      <App />
-    </UserProvider>
+    <Router history={customHistory}>
+      <UserProvider>
+        <App />
+      </UserProvider>
+    </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );
