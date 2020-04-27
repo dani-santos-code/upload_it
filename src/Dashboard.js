@@ -1,15 +1,39 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
+import "react-dropzone-uploader/dist/styles.css";
+import Dropzone from "react-dropzone-uploader";
+import "./Dashboard.css";
 import { UserContext } from "./UserContext";
 
 export default function Dashboard() {
   const { user, token } = useContext(UserContext);
-  //console.log("USER", user);
-  console.log(user);
+
+  const getUploadParams = ({ meta }) => {
+    //
+  };
+
+  // called every time a file's `status` changes
+  const handleChangeStatus = ({ meta, file }, status) => {
+    console.log(status, meta, file);
+  };
+
+  // receives array of files that are done uploading when submit button is clicked
+  const handleSubmit = (files, allFiles) => {
+    console.log(files.map((f) => f.meta));
+    allFiles.forEach((f) => f.remove());
+  };
+
   return (
     <>
       <Wrapper>
         <Logo src="/logo.jpg" alt="logo" />
+        <Dropzone
+          getUploadParams={getUploadParams}
+          onChangeStatus={handleChangeStatus}
+          onSubmit={handleSubmit}
+          inputContent={"Add File(s)"}
+          accept="image/*"
+        />
       </Wrapper>
       <MainBody>
         <UserBar>
