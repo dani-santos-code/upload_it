@@ -8,8 +8,15 @@ import { UserContext } from "./UserContext";
 export default function Dashboard() {
   const { user, token } = useContext(UserContext);
 
-  const getUploadParams = ({ meta }) => {
-    //
+  const getUploadParams = ({ file, meta }) => {
+    const body = new FormData();
+    body.append("fileField", file);
+    console.log(token);
+    return {
+      url: "http://127.0.0.1:3000/api/v1/images/me/upload",
+      body,
+      headers: { Authorization: `Bearer ${token}` },
+    };
   };
 
   // called every time a file's `status` changes
@@ -19,6 +26,7 @@ export default function Dashboard() {
 
   // receives array of files that are done uploading when submit button is clicked
   const handleSubmit = (files, allFiles) => {
+    console.log("SUBMIT CALLED");
     console.log(files.map((f) => f.meta));
     allFiles.forEach((f) => f.remove());
   };
@@ -32,7 +40,11 @@ export default function Dashboard() {
           onChangeStatus={handleChangeStatus}
           onSubmit={handleSubmit}
           inputContent={"Add File(s)"}
+          inputWithFilesContent={"Add More Files"}
+          submitButtonContent={"Upload"}
+          submitButtonDisabled={false}
           accept="image/*"
+          multiple={true}
         />
       </Wrapper>
       <MainBody>

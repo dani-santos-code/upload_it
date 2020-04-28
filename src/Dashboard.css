@@ -22,4 +22,6 @@
 .dzu-dropzone label {
   color: black;
   font-size: 14px;
+  align-self: flex-end;
+  margin-right: 10px;
 }

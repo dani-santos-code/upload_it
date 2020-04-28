@@ -22,6 +22,7 @@ const UserProvider = ({ children }) => {
         setToken(token);
         setUser(user);
         localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
       });
   };
 
@@ -39,6 +40,7 @@ const UserProvider = ({ children }) => {
         setToken(token);
         setUser(user);
         localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
         history.push("/dashboard");
         history.go();
       })
@@ -50,7 +52,9 @@ const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const localToken = localStorage.getItem("token");
+    const localUser = localStorage.getItem("user");
     setToken(localToken);
+    setUser(JSON.parse(localUser));
   }, []);
 
   return (
