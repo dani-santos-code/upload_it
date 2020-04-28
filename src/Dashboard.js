@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import "react-dropzone-uploader/dist/styles.css";
 import Dropzone from "react-dropzone-uploader";
@@ -7,26 +7,16 @@ import { UserContext } from "./UserContext";
 
 export default function Dashboard() {
   const { user, token } = useContext(UserContext);
+  const [showIcon, setShowIcon] = useState(true);
 
-  const getUploadParams = ({ file, meta }) => {
-    const body = new FormData();
-    body.append("fileField", file);
-    console.log(token);
-    return {
-      url: "http://127.0.0.1:3000/api/v1/images/me/upload",
-      body,
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  const handleChangeStatus = ({ meta }, status) => {
+    if (status === "preparing") {
+      setShowIcon(false);
+    }
+    console.log(status, meta);
   };
 
-  // called every time a file's `status` changes
-  const handleChangeStatus = ({ meta, file }, status) => {
-    console.log(status, meta, file);
-  };
-
-  // receives array of files that are done uploading when submit button is clicked
   const handleSubmit = (files, allFiles) => {
-    console.log("SUBMIT CALLED");
     console.log(files.map((f) => f.meta));
     allFiles.forEach((f) => f.remove());
   };
@@ -36,15 +26,25 @@ export default function Dashboard() {
       <Wrapper>
         <Logo src="/logo.jpg" alt="logo" />
         <Dropzone
-          getUploadParams={getUploadParams}
           onChangeStatus={handleChangeStatus}
           onSubmit={handleSubmit}
-          inputContent={"Add File(s)"}
+          maxFiles={6}
+          inputContent={"Add Up To 6 Files"}
           inputWithFilesContent={"Add More Files"}
           submitButtonContent={"Upload"}
           submitButtonDisabled={false}
           accept="image/*"
           multiple={true}
+          styles={{
+            dropzone: showIcon
+              ? {
+                  backgroundImage: `url("/upload.png")`,
+                  backgroundSize: "40px",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "40px",
+                }
+              : { backgroundImage: "none" },
+          }}
         />
       </Wrapper>
       <MainBody>
