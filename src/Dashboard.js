@@ -10,14 +10,33 @@ export default function Dashboard() {
   const [showIcon, setShowIcon] = useState(true);
 
   const handleChangeStatus = ({ meta }, status) => {
-    if (status === "preparing") {
+    if (status === "done" || status === "preparing" || status === "removing") {
       setShowIcon(false);
+    } else {
+      setShowIcon(true);
     }
-    console.log(status, meta);
+    //console.log(status, meta);
   };
 
-  const handleSubmit = (files, allFiles) => {
-    console.log(files.map((f) => f.meta));
+  const uploadImage = (files, allFiles) => {
+    const filesToSubmit = files.map((f) => f.file);
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    const formData = new FormData();
+    filesToSubmit.forEach((i) => {
+      formData.append("upload", i);
+    });
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: formData,
+    };
+    fetch("http://127.0.0.1:3000/api/v1/images/me/upload", requestOptions).then(
+      (response) => {
+        console.log(response.json());
+      }
+    );
     allFiles.forEach((f) => f.remove());
   };
 
@@ -27,7 +46,7 @@ export default function Dashboard() {
         <Logo src="/logo.jpg" alt="logo" />
         <Dropzone
           onChangeStatus={handleChangeStatus}
-          onSubmit={handleSubmit}
+          onSubmit={uploadImage}
           maxFiles={6}
           inputContent={"Add Up To 6 Files"}
           inputWithFilesContent={"Add More Files"}
