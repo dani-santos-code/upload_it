@@ -99,7 +99,10 @@ export default function Dashboard() {
       <MainBody>
         <UserBar>
           {user ? (
-            <UserAvatar>{user.name[0]}</UserAvatar>
+            <>
+              <UserGreeting>Hello, {user.name} !</UserGreeting>
+              <UserAvatar>{user.name[0]}</UserAvatar>
+            </>
           ) : (
             <UserAvatar>?</UserAvatar>
           )}
@@ -151,7 +154,14 @@ const UserAvatar = styled.div`
   background-color: rgba(4, 255, 255, 0.42);
   border-radius: 50px;
 `;
-
+const UserGreeting = styled.span`
+  padding: 20px;
+  margin: 0;
+  color: white;
+  font-size: 15px;
+  line-height: 33px;
+  font-weight: bold;
+`;
 const GalleryBg = styled.div`
   background: url("/cactus.png") no-repeat;
   background-size: 200px;
