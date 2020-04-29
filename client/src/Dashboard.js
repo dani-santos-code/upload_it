@@ -9,21 +9,34 @@ export default function Dashboard() {
   const { user, token } = useContext(UserContext);
   const [showIcon, setShowIcon] = useState(true);
   const [images, setImages] = useState([]);
-  useEffect(() => {
+
+  const fetchImages = () => {
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
     const requestOptions = {
       method: "GET",
       headers: myHeaders,
     };
+    const toBase64 = (arrBuffer) => {
+      const base64 = btoa(String.fromCharCode(...new Uint8Array(arrBuffer)));
+      return `data:image/jpeg;base64,${base64}`;
+    };
+
     fetch("http://127.0.0.1:3000/api/v1/images", requestOptions)
       .then((res) => res.json())
       .then((res) => {
-        setImages(res.binaries[0].data);
-        // res.binaries.forEach((img) => {
-        //   setImages(img.data);
-        // });
+        const imageUrls = [];
+        console.log(res);
+        if (res) {
+          res.binaries.forEach((img) => {
+            imageUrls.push(toBase64(img.data));
+          });
+        }
+        setImages(imageUrls);
       });
+  };
+  useEffect(() => {
+    fetchImages();
   }, []);
 
   const handleChangeStatus = ({ meta }, status) => {
@@ -50,6 +63,7 @@ export default function Dashboard() {
     fetch("http://127.0.0.1:3000/api/v1/images/me/upload", requestOptions).then(
       (response) => {
         console.log(response.json());
+        fetchImages();
       }
     );
     allFiles.forEach((f) => f.remove());
@@ -63,6 +77,7 @@ export default function Dashboard() {
           onChangeStatus={handleChangeStatus}
           onSubmit={uploadImage}
           maxFiles={6}
+          maxSizeBytes={100000}
           inputContent={"Add Up To 6 Files"}
           inputWithFilesContent={"Add More Files"}
           submitButtonContent={"Upload"}
@@ -91,14 +106,9 @@ export default function Dashboard() {
         </UserBar>
         <div>
           <p>Nothing yet</p>
-          {images && (
-            <img
-              src={`data:image/jpeg;base64,${btoa(
-                String.fromCharCode(...new Uint8Array(images))
-              )}`}
-              alt="user pic"
-            />
-          )}
+          {images.map((img) => (
+            <img src={img} alt="uploaded" />
+          ))}
         </div>
         <GalleryBg></GalleryBg>
       </MainBody>
