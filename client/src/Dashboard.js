@@ -107,13 +107,23 @@ export default function Dashboard() {
             <UserAvatar>?</UserAvatar>
           )}
         </UserBar>
-        <div>
-          <p>Nothing yet</p>
-          {images.map((img) => (
-            <img src={img} alt="uploaded" />
-          ))}
-        </div>
-        <GalleryBg></GalleryBg>
+        {images.length ? (
+          <div>
+            {images.map((img) => (
+              <img src={img} alt="uploaded" />
+            ))}
+          </div>
+        ) : (
+          <>
+            <NoImagesWrapper>
+              <NoImagesMessage>No images yet</NoImagesMessage>
+              <NoImagesInfo>
+                Your uploaded images will be shown here.
+              </NoImagesInfo>
+              <GalleryBg src="cactus.png"></GalleryBg>
+            </NoImagesWrapper>
+          </>
+        )}
       </MainBody>
     </>
   );
@@ -162,9 +172,25 @@ const UserGreeting = styled.span`
   line-height: 33px;
   font-weight: bold;
 `;
-const GalleryBg = styled.div`
-  background: url("/cactus.png") no-repeat;
-  background-size: 200px;
-  background-position: center;
+const GalleryBg = styled.img`
+  width: 200px;
+`;
+
+const NoImagesMessage = styled.p`
+  font-size: 16px;
+  margin: 0px;
+  font-weight: bold;
+`;
+
+const NoImagesInfo = styled.p`
+  padding: 0px;
+  font-size: 14px;
+`;
+
+const NoImagesWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   min-height: 100vh;
 `;
