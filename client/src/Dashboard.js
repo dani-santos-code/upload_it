@@ -19,9 +19,10 @@ export default function Dashboard() {
     fetch("http://127.0.0.1:3000/api/v1/images", requestOptions)
       .then((res) => res.json())
       .then((res) => {
-        res.binaries.forEach((img) => {
-          setImages(img.data);
-        });
+        setImages(res.binaries[0].data);
+        // res.binaries.forEach((img) => {
+        //   setImages(img.data);
+        // });
       });
   }, []);
 
@@ -90,14 +91,14 @@ export default function Dashboard() {
         </UserBar>
         <div>
           <p>Nothing yet</p>
-          {/* {images && (
+          {images && (
             <img
               src={`data:image/jpeg;base64,${btoa(
                 String.fromCharCode(...new Uint8Array(images))
               )}`}
               alt="user pic"
             />
-          )} */}
+          )}
         </div>
         <GalleryBg></GalleryBg>
       </MainBody>
