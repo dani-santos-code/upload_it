@@ -83,7 +83,6 @@ export default function Dashboard() {
           submitButtonContent={"Upload"}
           submitButtonDisabled={false}
           accept="image/*"
-          multiple={true}
           styles={{
             dropzone: showIcon
               ? {
@@ -108,18 +107,22 @@ export default function Dashboard() {
           )}
         </UserBar>
         {images.length ? (
-          <div>
-            {images.map((img) => (
-              <img src={img} alt="uploaded" />
-            ))}
-          </div>
+          <>
+            <ImageCountWrapper>
+              <ImagesMessage>Your images</ImagesMessage>
+              <ImagesInfo>You have uploaded {images.length} images </ImagesInfo>
+            </ImageCountWrapper>
+            <ImageGalleryWrapper>
+              {images.map((img, i) => (
+                <Thumbnail key={`${img}-${i}`} src={img} alt="uploaded" />
+              ))}
+            </ImageGalleryWrapper>
+          </>
         ) : (
           <>
             <NoImagesWrapper>
-              <NoImagesMessage>No images yet</NoImagesMessage>
-              <NoImagesInfo>
-                Your uploaded images will be shown here.
-              </NoImagesInfo>
+              <ImagesMessage>No images yet</ImagesMessage>
+              <ImagesInfo>Your uploaded images will be shown here.</ImagesInfo>
               <GalleryBg src="cactus.png"></GalleryBg>
             </NoImagesWrapper>
           </>
@@ -176,13 +179,13 @@ const GalleryBg = styled.img`
   width: 200px;
 `;
 
-const NoImagesMessage = styled.p`
+const ImagesMessage = styled.p`
   font-size: 16px;
   margin: 0px;
   font-weight: bold;
 `;
 
-const NoImagesInfo = styled.p`
+const ImagesInfo = styled.p`
   padding: 0px;
   font-size: 14px;
 `;
@@ -193,4 +196,21 @@ const NoImagesWrapper = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+`;
+
+const ImageGalleryWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  justify-items: center;
+  padding: 20px;
+`;
+
+const ImageCountWrapper = styled.div`
+  margin: 20px;
+`;
+
+const Thumbnail = styled.img`
+  width: 200px;
+  box-shadow: 10px 0px 40px rgba(32, 86, 86, 0.19);
+  border-radius: 8px;
 `;

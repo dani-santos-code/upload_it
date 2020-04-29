@@ -1,7 +1,8 @@
 ## Image Uploader Client Code
+
 This is the FE implementation of the Image Uploader API project
 
-In the project directory, you can run:
+In the project directory `client`, you can run:
 
 ### `npm run start`
 
