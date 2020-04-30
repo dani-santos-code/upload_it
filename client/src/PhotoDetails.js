@@ -2,6 +2,8 @@ import React, { useEffect, useContext, useState } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { UserContext } from "./UserContext";
+import { lock } from "react-icons-kit/feather/lock";
+import { Icon } from "react-icons-kit";
 
 export default function PhotoDetails() {
   let { photoId } = useParams();
@@ -32,6 +34,12 @@ export default function PhotoDetails() {
       });
   }, []);
 
+  const changePrivacy = () => {
+    console.log("Change this shit!");
+  };
+  const deletePhoto = () => {
+    console.log("DELETE ME!!!");
+  };
   return (
     <>
       <PhotoBar>
@@ -58,8 +66,20 @@ export default function PhotoDetails() {
           />
         </svg>
       </PhotoBar>
-      {console.log(image)}
       <ImageWrapper>{image && <Photo src={`${image.binary}`} />}</ImageWrapper>
+      <InfoWrapper>
+        <PrivateImageInfo>
+          <IconWrapper>
+            <PrivacyContainer onClick={changePrivacy}>
+              <Icon icon={lock} />{" "}
+              <span>Private Image by Default. Click to make it public.</span>
+            </PrivacyContainer>
+          </IconWrapper>
+        </PrivateImageInfo>
+        <DeleteInfo>
+          <button onClick={deletePhoto}>Delete This Image?</button>
+        </DeleteInfo>
+      </InfoWrapper>
     </>
   );
 }
@@ -80,7 +100,7 @@ const PhotoBar = styled.div`
 const ImageWrapper = styled.div`
   height: 600px;
   width: 600px;
-  margin-top: 60px;
+  margin-top: 40px;
   align-self: center;
   grid-column: 2/4;
   justify-self: left;
@@ -89,4 +109,34 @@ const ImageWrapper = styled.div`
 const Photo = styled.img`
   box-shadow: 0px 0px 40px rgba(32, 86, 86, 0.19);
   border-radius: 8px;
+`;
+
+const InfoWrapper = styled.div`
+  grid-row: 2/3;
+  grid-column: 2 / 5;
+  display: flex;
+`;
+
+const PrivateImageInfo = styled.div`
+  margin-top: 10px;
+`;
+
+const DeleteInfo = styled.div`
+  margin-top: 10px;
+  grid-column: 1 / 3;
+  button {
+    color: red;
+    font-size: 12px;
+    margin-left: 220px;
+    border: none;
+    cursor: pointer;
+  }
+`;
+
+const IconWrapper = styled.div``;
+
+const PrivacyContainer = styled.button`
+  border: none;
+  color: #3e376a;
+  cursor: pointer;
 `;
