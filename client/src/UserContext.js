@@ -50,6 +50,22 @@ const UserProvider = ({ children }) => {
       });
   };
 
+  const handleLogOut = () => {
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+    };
+    fetch("http://127.0.0.1:3000/api/v1/users/logout", requestOptions).then(
+      (res) => {
+        localStorage.clear();
+        history.push("/");
+        history.go();
+      }
+    );
+  };
+
   useEffect(() => {
     const localToken = localStorage.getItem("token");
     const localUser = localStorage.getItem("user");
@@ -58,7 +74,9 @@ const UserProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ handleLogin, handleSignUp, token, user }}>
+    <UserContext.Provider
+      value={{ handleLogin, handleSignUp, handleLogOut, token, user }}
+    >
       {children}
     </UserContext.Provider>
   );

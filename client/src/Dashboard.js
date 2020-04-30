@@ -1,12 +1,14 @@
 import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
+import { logOut } from "react-icons-kit/feather/logOut";
+import { Icon } from "react-icons-kit";
 import "react-dropzone-uploader/dist/styles.css";
 import Dropzone from "react-dropzone-uploader";
 import "./Dashboard.css";
 import { UserContext } from "./UserContext";
 
 export default function Dashboard() {
-  const { user, token } = useContext(UserContext);
+  const { user, token, handleLogOut } = useContext(UserContext);
   const [showIcon, setShowIcon] = useState(true);
   const [images, setImages] = useState([]);
 
@@ -106,6 +108,11 @@ export default function Dashboard() {
             <UserAvatar>?</UserAvatar>
           )}
         </UserBar>
+        <IconWrapper>
+          <LogoutContainer onClick={handleLogOut}>
+            <Icon icon={logOut} /> <span>Logout</span>
+          </LogoutContainer>
+        </IconWrapper>
         {images.length ? (
           <>
             <ImageCountWrapper>
@@ -174,6 +181,25 @@ const UserGreeting = styled.span`
   font-size: 15px;
   line-height: 33px;
   font-weight: bold;
+`;
+
+const IconWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0px;
+`;
+
+const LogoutContainer = styled.button`
+  background-color: white;
+  box-shadow: 0px 1px 4px rgba(11, 108, 115, 0.19);
+  border-radius: 4px;
+  width: 100px;
+  height: 29px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
 `;
 const GalleryBg = styled.img`
   width: 200px;
