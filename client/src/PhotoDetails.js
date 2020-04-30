@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { UserContext } from "./UserContext";
 import { lock } from "react-icons-kit/feather/lock";
 import { Icon } from "react-icons-kit";
@@ -8,7 +8,11 @@ import { Icon } from "react-icons-kit";
 export default function PhotoDetails() {
   let { photoId } = useParams();
   const { token } = useContext(UserContext);
-  const [image, setImage] = useState({});
+  let history = useHistory();
+  const [image, setImage] = useState(null);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [deleteSuccess, setDeleteSuccess] = useState(false);
+  const [fetchError, setFetchError] = useState(false);
 
   useEffect(() => {
     const myHeaders = new Headers();
@@ -25,21 +29,43 @@ export default function PhotoDetails() {
     fetch(`http://127.0.0.1:3000/api/v1/images/${photoId}`, requestOptions)
       .then((res) => res.json())
       .then((res) => {
-        const imageObj = {
-          id: res._id,
-          owner: res.owner,
-          binary: toBase64(res.binary.data),
-        };
-        setImage(imageObj);
+        if (res) {
+          const imageObj = {
+            id: res._id,
+            owner: res.owner,
+            binary: toBase64(res.binary.data),
+          };
+          setImage(imageObj);
+        }
+      })
+      .catch((e) => {
+        setFetchError(true);
       });
   }, []);
 
   const changePrivacy = () => {
-    console.log("Change this shit!");
+    console.log("Change this");
   };
-  const deletePhoto = () => {
-    console.log("DELETE ME!!!");
+
+  const handleDeletePhoto = () => {
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+
+    const requestOptions = {
+      method: "DELETE",
+      headers: myHeaders,
+    };
+    fetch(`http://127.0.0.1:3000/api/v1/images/${photoId}`, requestOptions)
+      .then((response) => response)
+      .then((res) => {
+        if (res.status === 200) {
+          setDeleteSuccess(true);
+          history.push("/dashboard");
+          //history.go();
+        }
+      });
   };
+
   return (
     <>
       <PhotoBar>
@@ -66,7 +92,13 @@ export default function PhotoDetails() {
           />
         </svg>
       </PhotoBar>
-      <ImageWrapper>{image && <Photo src={`${image.binary}`} />}</ImageWrapper>
+      <ImageWrapper>
+        {image && fetchError === false ? (
+          <Photo src={`${image.binary}`} />
+        ) : (
+          <h2>No image Found</h2>
+        )}
+      </ImageWrapper>
       <InfoWrapper>
         <PrivateImageInfo>
           <IconWrapper>
@@ -77,7 +109,17 @@ export default function PhotoDetails() {
           </IconWrapper>
         </PrivateImageInfo>
         <DeleteInfo>
-          <button onClick={deletePhoto}>Delete This Image?</button>
+          {confirmDelete ? (
+            <button onClick={() => handleDeletePhoto()}>Yes, Delete</button>
+          ) : (
+            <button
+              onClick={() => {
+                setConfirmDelete(!confirmDelete);
+              }}
+            >
+              Delete This Image?
+            </button>
+          )}
         </DeleteInfo>
       </InfoWrapper>
     </>
