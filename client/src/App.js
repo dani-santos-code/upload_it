@@ -5,6 +5,7 @@ import { GlobalStyles } from "./GlobalStyles";
 import LoginPage from "./LoginPage";
 import Dashboard from "./Dashboard";
 import SignUp from "./SignUp";
+import PhotoDetails from "./PhotoDetails";
 import PrivateRoute from "./PrivateRoute";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         </Route>
         <PrivateRoute path="/dashboard">
           <Dashboard />
+          <Route path={`/photos/:photoId`} component={PhotoDetails} />
         </PrivateRoute>
       </Switch>
     </Wrapper>

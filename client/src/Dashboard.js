@@ -28,10 +28,13 @@ export default function Dashboard() {
       .then((res) => res.json())
       .then((res) => {
         const imageUrls = [];
-        console.log(res);
         if (res) {
-          res.binaries.forEach((img) => {
-            imageUrls.push(toBase64(img.data));
+          res.imagesDetails.forEach((img) => {
+            console.log(img);
+            imageUrls.push({
+              binary: toBase64(img.binary.data),
+              id: imageUrls.id,
+            });
           });
         }
         setImages(imageUrls);
@@ -121,7 +124,11 @@ export default function Dashboard() {
             </ImageCountWrapper>
             <ImageGalleryWrapper>
               {images.map((img, i) => (
-                <Thumbnail key={`${img}-${i}`} src={img} alt="uploaded" />
+                <Thumbnail
+                  key={`${img}-${i}`}
+                  src={img.binary}
+                  alt="uploaded"
+                />
               ))}
             </ImageGalleryWrapper>
           </>
