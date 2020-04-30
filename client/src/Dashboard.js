@@ -69,12 +69,13 @@ export default function Dashboard() {
       headers: myHeaders,
       body: formData,
     };
-    fetch("http://127.0.0.1:3000/api/v1/images/me/upload", requestOptions).then(
-      (response) => {
-        console.log(response.json());
-        fetchImages();
-      }
-    );
+    fetch("http://127.0.0.1:3000/api/v1/images/me/upload", requestOptions)
+      .then((response) => response)
+      .then((response) => {
+        if (response.status === 200) {
+          fetchImages();
+        }
+      });
     allFiles.forEach((f) => f.remove());
   };
 
