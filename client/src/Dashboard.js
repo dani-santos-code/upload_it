@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { logOut } from "react-icons-kit/feather/logOut";
 import { Icon } from "react-icons-kit";
 import "react-dropzone-uploader/dist/styles.css";
@@ -12,6 +12,7 @@ export default function Dashboard() {
   const { user, token, handleLogOut } = useContext(UserContext);
   const [showIcon, setShowIcon] = useState(true);
   const [images, setImages] = useState([]);
+  let history = useHistory();
 
   const fetchImages = () => {
     const myHeaders = new Headers();
@@ -73,7 +74,9 @@ export default function Dashboard() {
       .then((response) => response)
       .then((response) => {
         if (response.status === 200) {
-          fetchImages();
+          setTimeout(() => {
+            fetchImages();
+          }, 500);
         }
       });
     allFiles.forEach((f) => f.remove());
@@ -112,6 +115,7 @@ export default function Dashboard() {
             <>
               <UserGreeting>Hello, {user.name} !</UserGreeting>
               <UserAvatar>{user.name[0]}</UserAvatar>
+              <Link to="/allImages">Public Gallery</Link>
             </>
           ) : (
             <UserAvatar>?</UserAvatar>

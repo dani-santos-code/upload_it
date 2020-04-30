@@ -7,6 +7,7 @@ import Dashboard from "./Dashboard";
 import SignUp from "./SignUp";
 import PhotoDetails from "./PhotoDetails";
 import PrivateRoute from "./PrivateRoute";
+import PublicGallery from "./PublicGallery";
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
         <Route path="/signup">
           <SignUp />
         </Route>
+        <PrivateRoute path="/allImages">
+          <PublicGallery />
+        </PrivateRoute>
         <PrivateRoute path="/dashboard">
           <Dashboard />
         </PrivateRoute>

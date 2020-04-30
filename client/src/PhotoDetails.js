@@ -45,6 +45,24 @@ export default function PhotoDetails() {
 
   const changePrivacy = () => {
     console.log("Change this");
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+
+    const requestOptions = {
+      method: "PUT",
+      headers: myHeaders,
+    };
+    fetch(
+      `http://127.0.0.1:3000/api/v1/public/images/${photoId}`,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          //
+        }
+      });
   };
 
   const handleDeletePhoto = () => {
