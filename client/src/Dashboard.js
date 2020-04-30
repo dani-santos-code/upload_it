@@ -199,9 +199,7 @@ const NoImagesWrapper = styled.div`
 `;
 
 const ImageGalleryWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  justify-items: center;
+  width: 100%;
   padding: 20px;
 `;
 
@@ -209,8 +207,13 @@ const ImageCountWrapper = styled.div`
   margin: 20px;
 `;
 
-const Thumbnail = styled.img`
+const Thumbnail = styled.div`
   width: 200px;
+  display: inline-block;
+  margin: 20px;
+  background: url(${(props) => props.src});
+  background-size: cover;
+  height: 200px;
   box-shadow: 10px 0px 40px rgba(32, 86, 86, 0.19);
   border-radius: 8px;
 `;
