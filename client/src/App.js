@@ -21,7 +21,9 @@ function App() {
         </Route>
         <PrivateRoute path="/dashboard">
           <Dashboard />
-          <Route path={`/photos/:photoId`} component={PhotoDetails} />
+        </PrivateRoute>
+        <PrivateRoute path="/photos/:photoId">
+          <PhotoDetails />
         </PrivateRoute>
       </Switch>
     </Wrapper>

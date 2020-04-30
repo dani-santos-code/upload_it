@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { logOut } from "react-icons-kit/feather/logOut";
 import { Icon } from "react-icons-kit";
 import "react-dropzone-uploader/dist/styles.css";
@@ -30,10 +31,10 @@ export default function Dashboard() {
         const imageUrls = [];
         if (res) {
           res.imagesDetails.forEach((img) => {
-            console.log(img);
+            //console.log(img);
             imageUrls.push({
               binary: toBase64(img.binary.data),
-              id: imageUrls.id,
+              id: img.id,
             });
           });
         }
@@ -124,11 +125,9 @@ export default function Dashboard() {
             </ImageCountWrapper>
             <ImageGalleryWrapper>
               {images.map((img, i) => (
-                <Thumbnail
-                  key={`${img}-${i}`}
-                  src={img.binary}
-                  alt="uploaded"
-                />
+                <Link to={`/photos/${img.id}`} key={`${img}-${i}`}>
+                  <Thumbnail src={img.binary} alt="uploaded" />
+                </Link>
               ))}
             </ImageGalleryWrapper>
           </>
