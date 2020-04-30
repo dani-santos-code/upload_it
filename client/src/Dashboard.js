@@ -52,6 +52,9 @@ export default function Dashboard() {
       setShowIcon(true);
     }
   };
+  const getUploadParams = ({ meta }) => {
+    return { url: "https://httpbin.org/post" };
+  };
   const uploadImage = (files, allFiles) => {
     const filesToSubmit = files.map((f) => f.file);
     const myHeaders = new Headers();
@@ -80,6 +83,7 @@ export default function Dashboard() {
       <Wrapper>
         <Logo src="/logo.jpg" alt="logo" />
         <Dropzone
+          getUploadParams={getUploadParams}
           onChangeStatus={handleChangeStatus}
           onSubmit={uploadImage}
           maxFiles={6}
