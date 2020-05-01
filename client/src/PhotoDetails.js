@@ -8,7 +8,7 @@ import { Icon } from "react-icons-kit";
 
 export default function PhotoDetails() {
   let { photoId } = useParams();
-  const { token } = useContext(UserContext);
+  const { user, token } = useContext(UserContext);
   let history = useHistory();
   const [image, setImage] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -85,31 +85,40 @@ export default function PhotoDetails() {
       });
   };
 
+  const handleRedirect = () => {
+    history.push("/dashboard");
+  };
+
   return (
     <>
       <PhotoBar>
-        <svg
-          width="22"
-          height="22"
-          viewBox="0 0 22 22"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M2 2L20 20"
-            stroke="#4D4965"
-            strokeWidth="4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M2 20L20 2"
-            stroke="#4D4965"
-            strokeWidth="4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+        <HeaderButton onClick={handleRedirect}>
+          {user.name}'s gallery
+        </HeaderButton>
+        <HeaderButton onClick={handleRedirect}>
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 22 22"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M2 2L20 20"
+              stroke="#4D4965"
+              strokeWidth="4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M2 20L20 2"
+              stroke="#4D4965"
+              strokeWidth="4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </HeaderButton>
       </PhotoBar>
       <ImageWrapper>
         {image && fetchError === false ? (
@@ -162,17 +171,17 @@ const PhotoBar = styled.div`
   width: 100%;
   grid-column: 1 / 3;
   box-shadow: 10px 0px 40px rgba(32, 86, 86, 0.19);
-  transform: matrix(1, 0, 0, -1, 0, 0);
   display: flex;
   justify-content: flex-end;
   align-items: center;
   padding: 30px;
+  justify-content: space-evenly;
 `;
 
 const ImageWrapper = styled.div`
   height: 600px;
   width: 600px;
-  margin-top: 40px;
+  margin-top: 20px;
   align-self: center;
   grid-column: 2/4;
   justify-self: left;
@@ -192,19 +201,19 @@ const InfoWrapper = styled.div`
 `;
 
 const PrivateImageInfo = styled.div`
-  margin-top: 10px;
+  margin-top: 20px;
 `;
 
 const DeleteInfo = styled.div`
-  margin-top: 10px;
+  margin-top: 20px;
   grid-column: 1 / 3;
   display: flex;
   button {
     color: red;
     font-size: 12px;
-    /* //margin-left: 230px; */
     border: none;
     cursor: pointer;
+    background-color: transparent;
   }
 `;
 
@@ -214,4 +223,13 @@ const PrivacyContainer = styled.button`
   border: none;
   color: #3e376a;
   cursor: pointer;
+  background-color: transparent;
+`;
+
+const HeaderButton = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
 `;
