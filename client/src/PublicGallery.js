@@ -49,7 +49,7 @@ export default function PublicGallery() {
   return (
     <>
       <PhotoBar>
-        <HeaderButton onClick={handleRedirect}>Public Gallery</HeaderButton>
+        <HeaderButton>Public Gallery</HeaderButton>
         <HeaderButton onClick={handleRedirect}>
           <svg
             width="22"
