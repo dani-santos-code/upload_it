@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
 import styled from "styled-components";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { UserContext } from "./UserContext";
 
 export default function PublicGallery() {
@@ -80,9 +80,7 @@ export default function PublicGallery() {
           <ImageGalleryWrapper>
             {images.map((img, i) => (
               <LinkWrapper key={`${img}-${i}`}>
-                <Link to={`/photos/${img.id}`}>
-                  <Thumbnail src={img.binary} alt="uploaded" />
-                </Link>
+                <Thumbnail src={img.binary} alt="uploaded" />
                 <span>Added by {img.owner}</span>
               </LinkWrapper>
             ))}
