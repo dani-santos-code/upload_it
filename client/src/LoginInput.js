@@ -6,7 +6,7 @@ import { UserContext } from "./UserContext";
 export default function LoginInput() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { handleLogin } = useContext(UserContext);
+  const { handleLogin, loginError } = useContext(UserContext);
 
   return (
     <Wrapper>
@@ -31,6 +31,9 @@ export default function LoginInput() {
             type="password"
             placeholder="*********"
           />
+          {loginError && (
+            <ErrorMessage>Oh, Oh! Something went wrong!</ErrorMessage>
+          )}
           <Button>Log In</Button>
         </StyledFieldSet>
       </StyledForm>
@@ -72,10 +75,17 @@ const StyledInput = styled.input`
 `;
 
 const StyledPassWordInput = styled(StyledInput)`
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 `;
 
 const StyledLabel = styled.label`
   font-size: 14px;
   margin-bottom: 10px;
+`;
+
+const ErrorMessage = styled.p`
+  color: red;
+  font-size: 14px;
+  margin: 0;
+  padding-bottom: 5px;
 `;

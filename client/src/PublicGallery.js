@@ -75,16 +75,28 @@ export default function PublicGallery() {
           </svg>
         </HeaderButton>
       </PhotoBar>
-      <ImageGalleryWrapper>
-        {images.map((img, i) => (
-          <LinkWrapper key={`${img}-${i}`}>
-            <Link to={`/photos/${img.id}`}>
-              <Thumbnail src={img.binary} alt="uploaded" />
-            </Link>
-            <span>Added by {img.owner}</span>
-          </LinkWrapper>
-        ))}
-      </ImageGalleryWrapper>
+      {images.length ? (
+        <>
+          <ImageGalleryWrapper>
+            {images.map((img, i) => (
+              <LinkWrapper key={`${img}-${i}`}>
+                <Link to={`/photos/${img.id}`}>
+                  <Thumbnail src={img.binary} alt="uploaded" />
+                </Link>
+                <span>Added by {img.owner}</span>
+              </LinkWrapper>
+            ))}
+          </ImageGalleryWrapper>
+        </>
+      ) : (
+        <>
+          <NoImagesWrapper>
+            <ImagesMessage>No images yet</ImagesMessage>
+            <ImagesInfo>Your uploaded images will be shown here.</ImagesInfo>
+            <GalleryBg src="cactus.png"></GalleryBg>
+          </NoImagesWrapper>
+        </>
+      )}
     </>
   );
 }
@@ -137,4 +149,28 @@ const HeaderButton = styled.button`
   cursor: pointer;
   font-size: 20px;
   font-weight: bold;
+`;
+
+const NoImagesWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  grid-column: 1/3;
+`;
+
+const GalleryBg = styled.img`
+  width: 200px;
+`;
+
+const ImagesMessage = styled.p`
+  font-size: 16px;
+  margin: 0px;
+  font-weight: bold;
+`;
+
+const ImagesInfo = styled.p`
+  padding: 0px;
+  font-size: 14px;
 `;

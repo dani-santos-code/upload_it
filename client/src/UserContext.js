@@ -6,6 +6,7 @@ export const UserContext = createContext(null);
 const UserProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
+  const [loginError, setLoginError] = useState(null);
   let history = useHistory();
 
   const handleLogin = ({ email, password }) => {
@@ -23,7 +24,8 @@ const UserProvider = ({ children }) => {
         setUser(user);
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
-      });
+      })
+      .catch((e) => setLoginError(true));
   };
 
   const handleSignUp = ({ name, email, password }) => {
@@ -75,7 +77,14 @@ const UserProvider = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ handleLogin, handleSignUp, handleLogOut, token, user }}
+      value={{
+        handleLogin,
+        handleSignUp,
+        handleLogOut,
+        loginError,
+        token,
+        user,
+      }}
     >
       {children}
     </UserContext.Provider>
