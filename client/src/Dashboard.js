@@ -115,7 +115,7 @@ export default function Dashboard() {
             <>
               <UserGreeting>Hello, {user.name} !</UserGreeting>
               <UserAvatar>{user.name[0]}</UserAvatar>
-              <Link to="/allImages">Public Gallery</Link>
+              <StyledLink to="/allImages">Public Gallery</StyledLink>
             </>
           ) : (
             <UserAvatar>?</UserAvatar>
@@ -174,6 +174,7 @@ const UserBar = styled.div`
   height: 40px;
   background-color: #00708c;
   position: relative;
+  padding: 3px;
 `;
 const UserAvatar = styled.div`
   width: 30px;
@@ -257,4 +258,14 @@ const Thumbnail = styled.div`
   height: 200px;
   box-shadow: 10px 0px 40px rgba(32, 86, 86, 0.19);
   border-radius: 8px;
+`;
+
+const StyledLink = styled(Link)`
+  color: white;
+  margin-left: 40px;
+  text-decoration: none;
+  cursor: pointer;
+  &:hover {
+    color: #04cdff;
+  }
 `;
