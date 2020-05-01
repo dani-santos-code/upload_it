@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useParams, useHistory } from "react-router-dom";
 import { UserContext } from "./UserContext";
 import { lock } from "react-icons-kit/feather/lock";
+import { unlock } from "react-icons-kit/feather/unlock";
 import { Icon } from "react-icons-kit";
 
 export default function PhotoDetails() {
@@ -13,6 +14,7 @@ export default function PhotoDetails() {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [deleteSuccess, setDeleteSuccess] = useState(false);
   const [fetchError, setFetchError] = useState(false);
+  const [isPrivate, setPrivacy] = useState(true);
 
   useEffect(() => {
     const myHeaders = new Headers();
@@ -44,7 +46,6 @@ export default function PhotoDetails() {
   }, []);
 
   const changePrivacy = () => {
-    console.log("Change this");
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
 
@@ -58,9 +59,9 @@ export default function PhotoDetails() {
     )
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          //
+        //console.log(response);
+        if (response.message === "Successful update.") {
+          setPrivacy(!isPrivate);
         }
       });
   };
@@ -120,9 +121,20 @@ export default function PhotoDetails() {
       <InfoWrapper>
         <PrivateImageInfo>
           <IconWrapper>
-            <PrivacyContainer onClick={changePrivacy}>
-              <Icon icon={lock} />{" "}
-              <span>Private Image by Default. Click to make it public.</span>
+            <PrivacyContainer onClick={() => changePrivacy()}>
+              {isPrivate ? (
+                <>
+                  <Icon icon={lock} />
+                  <span>
+                    Private Image by Default. Click to make it public.
+                  </span>
+                </>
+              ) : (
+                <>
+                  <Icon icon={unlock} />
+                  <span>Public image. Beauty is spread around the world.</span>
+                </>
+              )}
             </PrivacyContainer>
           </IconWrapper>
         </PrivateImageInfo>
@@ -175,6 +187,8 @@ const InfoWrapper = styled.div`
   grid-row: 2/3;
   grid-column: 2 / 5;
   display: flex;
+  justify-content: space-between;
+  width: 640px;
 `;
 
 const PrivateImageInfo = styled.div`
@@ -184,10 +198,11 @@ const PrivateImageInfo = styled.div`
 const DeleteInfo = styled.div`
   margin-top: 10px;
   grid-column: 1 / 3;
+  display: flex;
   button {
     color: red;
     font-size: 12px;
-    margin-left: 220px;
+    /* //margin-left: 230px; */
     border: none;
     cursor: pointer;
   }
