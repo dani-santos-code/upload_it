@@ -171,10 +171,9 @@ const PhotoBar = styled.div`
   grid-column: 1 / 3;
   box-shadow: 10px 0px 40px rgba(32, 86, 86, 0.19);
   display: flex;
-  justify-content: flex-end;
   align-items: center;
   padding: 30px;
-  justify-content: space-evenly;
+  justify-content: space-between;
 `;
 
 const ImageWrapper = styled.div`
