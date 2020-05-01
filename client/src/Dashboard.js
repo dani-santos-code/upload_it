@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { logOut } from "react-icons-kit/feather/logOut";
 import { Icon } from "react-icons-kit";
 import "react-dropzone-uploader/dist/styles.css";
@@ -12,7 +12,6 @@ export default function Dashboard() {
   const { user, token, handleLogOut } = useContext(UserContext);
   const [showIcon, setShowIcon] = useState(true);
   const [images, setImages] = useState([]);
-  let history = useHistory();
 
   const fetchImages = () => {
     const myHeaders = new Headers();
@@ -32,7 +31,6 @@ export default function Dashboard() {
         const imageUrls = [];
         if (res) {
           res.imagesDetails.forEach((img) => {
-            //console.log(img);
             imageUrls.push({
               binary: toBase64(img.binary.data),
               id: img.id,
@@ -92,7 +90,7 @@ export default function Dashboard() {
           onSubmit={uploadImage}
           maxFiles={6}
           maxSizeBytes={100000}
-          inputContent={"Add Up To 6 Files"}
+          inputContent={"Add Up To 6 Files At a Time"}
           inputWithFilesContent={"Add More Files"}
           submitButtonContent={"Upload"}
           submitButtonDisabled={false}

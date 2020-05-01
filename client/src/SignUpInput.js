@@ -8,7 +8,6 @@ export default function SignUpInput() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  //const [isConfirmed, setIsConfirmed] = useState(false);
   const [error, setError] = useState({ status: false, type: null });
   const { handleSignUp } = useContext(UserContext);
 

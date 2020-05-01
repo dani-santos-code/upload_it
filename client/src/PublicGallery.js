@@ -24,7 +24,6 @@ export default function PublicGallery() {
     fetch(`http://127.0.0.1:3000/api/v1/public/images`, requestOptions)
       .then((res) => res.json())
       .then((res) => {
-        //console.log(res);
         const imageUrls = [];
         if (res) {
           res.imagesDetails.forEach((img) => {
@@ -101,12 +100,10 @@ export default function PublicGallery() {
 
 const ImageGalleryWrapper = styled.div`
   width: 100%;
-  grid-column: 1/1;
-  grid-row: 1/3;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   max-width: 100%;
   justify-items: center;
-  align-items: center;
   padding-left: 109px;
 `;
 

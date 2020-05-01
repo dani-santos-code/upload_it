@@ -80,7 +80,6 @@ export default function PhotoDetails() {
         if (res.status === 200) {
           setDeleteSuccess(true);
           history.push("/dashboard");
-          //history.go();
         }
       });
   };
