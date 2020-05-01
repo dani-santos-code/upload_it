@@ -1,12 +1,17 @@
-## Image Uploader Client Code
-This is the FE implementation of the Image Uploader API project
+## Image Uploader
 
-In the project directory, you can run:
+`UploadIt` is a webapp that allows users to upload pictures. They can upload images of up to 100kbs. The images are set to be private by default, but users can make them public if they want their images to be added to the Public Image gallery.
 
-### `npm run start`
+## Running the project
+Go to the server directory. Run `npm install` followed by `npm run dev`. The server will be running on port `3000`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Go to the `client` directory. Run `npm install`followed by `npm run start`.
+Accept to listen to FE on port `3001`.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## User Flow
+
+- User Login With Error
+
+<img src='./assets/errorLogin.gif' />
+
+- User Logn With Failure

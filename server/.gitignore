@@ -1,0 +1,9 @@
+node_modules
+mongodb.js
+images
+config
+*.env*
+math.js
+math.test.js
+.DS_Store
+src/.DS_Store
