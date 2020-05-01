@@ -49,7 +49,7 @@ export default function PublicGallery() {
   return (
     <>
       <PhotoBar>
-        <HeaderButton>Public Gallery</HeaderButton>
+        <HeaderTitle>Public Gallery</HeaderTitle>
         <HeaderButton onClick={handleRedirect}>
           <svg
             width="22"
@@ -148,7 +148,10 @@ const HeaderButton = styled.button`
   font-size: 20px;
   font-weight: bold;
 `;
-
+const HeaderTitle = styled.h2`
+  font-size: 20px;
+  font-weight: bold;
+`;
 const NoImagesWrapper = styled.div`
   display: flex;
   flex-direction: column;
