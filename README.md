@@ -2,6 +2,8 @@
 
 `UploadIt` is a webapp that allows users to upload pictures. They can upload images of up to 100kbs. The images are set to be private by default, but users can make them public if they want their images to be added to the Public Image gallery.
 
+A [Demo](https://www.youtube.com/watch?v=0hbuTRUAl4Y&feature=youtu.beY) can be seen on Youtube. (Please watch it at 1080fps)
+
 ## Requirements to Run the Project
 
 - Requirementes: [node.js / npm](https://www.npmjs.com/get-npm)
