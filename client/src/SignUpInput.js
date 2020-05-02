@@ -9,7 +9,7 @@ export default function SignUpInput() {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [error, setError] = useState({ status: false, type: null });
-  const { handleSignUp } = useContext(UserContext);
+  const { handleSignUp, signUpError } = useContext(UserContext);
 
   return (
     <Wrapper>
@@ -66,10 +66,11 @@ export default function SignUpInput() {
             required={true}
           />
           {error.status && passwordConfirmation !== password ? (
-            <PassWordError>{error.type}</PassWordError>
+            <Error>{error.type}</Error>
           ) : (
             ""
           )}
+          {signUpError && <Error>User with this email already exists.</Error>}
           <Button>Sign Up</Button>
         </StyledFieldSet>
       </StyledForm>
@@ -118,7 +119,7 @@ const StyledLabel = styled.label`
   margin-bottom: 10px;
 `;
 
-const PassWordError = styled.span`
+const Error = styled.span`
   color: red;
   display: block;
   font-size: 14px;

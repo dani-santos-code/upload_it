@@ -2,7 +2,13 @@
 
 `UploadIt` is a webapp that allows users to upload pictures. They can upload images of up to 100kbs. The images are set to be private by default, but users can make them public if they want their images to be added to the Public Image gallery.
 
+## Requirements to Run the Project
+
+- Requirementes: [node.js / npm](https://www.npmjs.com/get-npm)
+- Install [Mongo Community Edition](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
+
 ## Running the project
+
 Go to the server directory. Run `npm install` followed by `npm run dev`. The server will be running on port `3000`
 
 Go to the `client` directory. Run `npm install`followed by `npm run start`.
@@ -24,11 +30,15 @@ Accept to listen to FE on port `3001`.
 
 <img src='./assets/go-to-signup.gif' />
 
-###  Sign Up / Creating an Account
+### Sign Up / Creating an Account
 
 - Error: when passwords do not match
 
 <img src='./assets/signup-error.gif' />
+
+- Email already exists:
+
+<img src='./assets/signuperror.gif' />
 
 - Successful Sign Up
 
@@ -38,28 +48,28 @@ Accept to listen to FE on port `3001`.
 
 <img src='./assets/logout.gif' />
 
-
 ### Uploading Images to the Gallery
 
 - Uploading 1 image:
   <img src='./assets/upload1.gif' />
 
 - Uploading 6 images:
- <img src='./assets/upload6.gif' />
-
+  <img src='./assets/upload6.gif' />
 
 ### Change Image Privacy Settings
+
 - Making it Public
- <img src='./assets/makepublic.gif' />
+  <img src='./assets/makepublic.gif' />
 
 - Accesing it via Public Gallery Link
 
 <img src='./assets/accesspublic.gif' />
 
 - Another User(Dani) Can See it Now:
-<img src='./assets/otheruseraccess.gif' />
+  <img src='./assets/otheruseraccess.gif' />
 
 ### Delete Image
+
 <img src='./assets/delete.gif' />
 
 ### Public Gallery
@@ -69,4 +79,8 @@ Accept to listen to FE on port `3001`.
 <img src='./assets/public-gallery-emptystate.gif' />
 
 - With Public Images Added:
-<img src='./assets/morepublic.gif' />
+  <img src='./assets/morepublic.gif' />
+
+### Designs
+
+For designs, go to `./assets/figma_design`
