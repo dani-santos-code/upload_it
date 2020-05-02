@@ -44,6 +44,7 @@ export default function SignUpInput() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="johndoe@john.com"
             required={true}
+            pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
           />
           <StyledLabel>Password</StyledLabel>
           <StyledInput

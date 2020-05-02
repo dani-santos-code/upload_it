@@ -148,7 +148,9 @@ export default function PhotoDetails() {
         </PrivateImageInfo>
         <DeleteInfo>
           {confirmDelete ? (
-            <button onClick={() => handleDeletePhoto()}>Yes, Delete</button>
+            <DeleteButton onClick={() => handleDeletePhoto()}>
+              Yes, Delete
+            </DeleteButton>
           ) : (
             <DeleteButton
               onClick={() => {
