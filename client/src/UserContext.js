@@ -38,18 +38,20 @@ const UserProvider = ({ children }) => {
       mode: "cors",
       body: JSON.stringify({ name, email, password }),
     })
-      .then((res) => res)
       .then((res) => {
         if (res.status === 400) {
           setSignUpError(true);
         } else {
-          setToken(token);
-          setUser(user);
-          localStorage.setItem("token", token);
-          localStorage.setItem("user", JSON.stringify(user));
-          history.push("/dashboard");
-          history.go();
+          return res.json();
         }
+      })
+      .then(({ user, token }) => {
+        setToken(token);
+        setUser(user);
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+        history.push("/dashboard");
+        history.go();
       })
       .catch((e) => {
         console.log(e);
