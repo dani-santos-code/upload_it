@@ -7,6 +7,7 @@ const UserProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
   const [loginError, setLoginError] = useState(null);
+  const [signUpError, setSignUpError] = useState(null);
   let history = useHistory();
 
   const handleLogin = ({ email, password }) => {
@@ -37,18 +38,22 @@ const UserProvider = ({ children }) => {
       mode: "cors",
       body: JSON.stringify({ name, email, password }),
     })
-      .then((res) => res.json())
-      .then(({ user, token }) => {
-        setToken(token);
-        setUser(user);
-        localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify(user));
-        history.push("/dashboard");
-        history.go();
+      .then((res) => res)
+      .then((res) => {
+        if (res.status === 400) {
+          setSignUpError(true);
+        } else {
+          setToken(token);
+          setUser(user);
+          localStorage.setItem("token", token);
+          localStorage.setItem("user", JSON.stringify(user));
+          history.push("/dashboard");
+          history.go();
+        }
       })
       .catch((e) => {
         console.log(e);
-        history.push("/signup");
+        history.push("/");
       });
   };
 
@@ -82,6 +87,7 @@ const UserProvider = ({ children }) => {
         handleSignUp,
         handleLogOut,
         loginError,
+        signUpError,
         token,
         user,
       }}

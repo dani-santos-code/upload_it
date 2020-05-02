@@ -1,12 +1,6 @@
-# Image Uploader API
+# Image Uploader API - Backend
 
-An image uploader developed with Node, Express and Mongoose/MongoDB
-
-## Running the Project
-
-- Requirementes: [node.js / npm](https://www.npmjs.com/get-npm)
-- Install [Mongo Community Edition](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
-- Go to the root directory and run `npm install` to install dependencies
+Node, Express and Mongoose/MongoDB
 
 ## Validation and Sanitization
 
@@ -59,51 +53,22 @@ _As per [OWASP's](https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Che
 
 Please refer to the [Endpoints](ENDPOINTS.MD) doc to get a more detailed description of endpoints and what they return
 
+Users:
+
 ```
 POST /api/v1/users
 GET /api/v1/users/login
 POST /api/v1/use1rs/logout
-POST /api/v1/users/logoutall
 GET /api/v1/users/me
 DELETE/api/v1/users/me
-POST /api/v1/images/me/upload
-GET /api/v1/images
-GET /api/v1/images/:id
-DELETE /api/v1/images/:id
 ```
 
-## TO DO: Future improvements
+Images:
 
-### File Storage
-
-- Issue: at the moment, files would be stored in the same disk of the instance being run. However, if a load balancer redirects traffic, the images wouldn't be able to be retrieved.
-
-- In order to better scale the application, the record in the DB would point to the address of an image stored on an S3 AWS bucket.
-
-- The node server, acting as a middleware, would have its external IP or [VPC endpoint](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies-vpc-endpoint.html) whitelisted in the [S3 Bucket Policy](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html#example-bucket-policies-use-case-3)
-
-### Big Data / File partition
-
-- In case we want to allow big data uploads, we could make use of S3's [Multipart upload API](https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html)
-
-- We could pick a chunk size (.eg 5MB) and partition the data
-
-### Deploying the DB
-
-- Making use of AWS's ecosystem, the DB could be deployed to AWS with [Mongo DB Atlas](https://www.mongodb.com/cloud/atlas/aws-mongodb?utm_medium=referral&utm_source=aws_quickstarts) service.
-- It provides the following:
-- Authentication, **network isolation with VPCs**, VPC peering, encryption, and role-based access controls help keep your data protected.
-- Deploy new clusters in minutes or modify existing deployments with **zero downtime**. Independently and elastically scale storage and memory at any time.
-- An Atlas cluster can be set to automatically scale its cluster tier, storage capacity, or both in response to cluster usage.
-
-### EC2 Instances
-
-- Servers will be deployed to an EC2 instance - with Auto Scaling - that will make requests to the clusters on MongoDB Atlas
-
-### General Architecture with AWS
-
-- VPC, Load Balancer, EC2, S3, AWS MongoDB Atlas
-
-### Adding more Tests
-
-- More tests should be added using a mock library.
+```
+POST /api/v1/images/me/upload
+GET /api/v1/images
+DELETE /api/v1/images/:id
+GET /api/v1/public/images
+PUT /api/v1/public/images/:id
+```
