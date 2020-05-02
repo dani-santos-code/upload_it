@@ -23,7 +23,7 @@ export default function LoginInput() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="johndoe@john.com"
-            pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
+            pattern="[^ @]*@[^ @]*"
           />
           <StyledLabel>Password</StyledLabel>
           <StyledPassWordInput
