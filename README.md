@@ -84,3 +84,7 @@ Accept to listen to FE on port `3001`.
 ### Designs
 
 For designs, go to `./assets/figma_design`
+
+### Backend
+
+Refer to the server folder for more info on the API design
