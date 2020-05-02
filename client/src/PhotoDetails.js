@@ -150,13 +150,13 @@ export default function PhotoDetails() {
           {confirmDelete ? (
             <button onClick={() => handleDeletePhoto()}>Yes, Delete</button>
           ) : (
-            <button
+            <DeleteButton
               onClick={() => {
                 setConfirmDelete(!confirmDelete);
               }}
             >
               Delete This Image?
-            </button>
+            </DeleteButton>
           )}
         </DeleteInfo>
       </InfoWrapper>
@@ -230,4 +230,8 @@ const HeaderButton = styled.button`
   cursor: pointer;
   font-size: 20px;
   font-weight: bold;
+`;
+
+const DeleteButton = styled.button`
+  align-self: baseline;
 `;
